@@ -3,10 +3,11 @@ use 5.008_001;
 use strict;
 use warnings;
 use utf8;
+use Carp ();
 use Exporter qw(import);
 use Scalar::Util qw(blessed);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our @EXPORT = qw(sql_op sql_raw);
 
@@ -290,6 +291,8 @@ C<as_sql> method.
 
 =head2 C<< sql_eq([$column,] $value) >>
 
+=head2 C<< sql_ne([$column,] $value) >>
+
 =head2 C<< sql_lt([$column,] $value) >>
 
 =head2 C<< sql_gt([$column,] $value) >>
@@ -391,6 +394,10 @@ the C<as_sql> method.
 
     IN:        sql_eq('foo' => 'bar')
     OUT QUERY: '`foo` = ?'
+    OUT BIND:  ('bar')
+
+    IN:        sql_ne('foo' => 'bar')
+    OUT QUERY: '`foo` != ?'
     OUT BIND:  ('bar')
 
     IN:        sql_in('foo' => ['bar', 'baz'])
